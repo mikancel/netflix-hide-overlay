@@ -1,15 +1,33 @@
 /**
- * Netflix Silent v3 — content.js
- * - マウス静止中は映像(<video>)以外の全UI要素を非表示
+ * Netflix Silent v3+ — content.js（字幕保持・カーソル安定化・最終版）
+ * - マウス静止中は映像(<video>)以外のUI要素を非表示（字幕は除外）
  * - DOM変化を監視し、新要素が追加されても即座に隠す
+ * - UIが隠れている間はカーソルを強制的に非表示に固定
  */
 
 const HIDE_DELAY = 2000;
 let hideTimer = null;
 let isHidden = false;
+let cursorLock = false;
 
 function isPlayerPage() {
   return location.pathname.startsWith('/watch');
+}
+
+// Netflix字幕DOMを確実に除外（クラス＋保険ロジック）
+function isSubtitleElement(el) {
+  if (!el) return false;
+
+  // クラスベース（最優先・安定）
+  if (el.classList?.contains('player-timedtext')) return true;
+  if (el.classList?.contains('player-timedtext-text-container')) return true;
+  if (el.querySelector?.('.player-timedtext, .player-timedtext-text-container')) return true;
+
+  // 意味属性ベース（将来変更への保険）
+  if (el.matches?.('[aria-live]')) return true;
+  if (el.querySelector?.('[aria-live]')) return true;
+
+  return false;
 }
 
 function hideNonVideoElements(video) {
@@ -17,7 +35,7 @@ function hideNonVideoElements(video) {
   let parent = current.parentElement;
   while (parent && parent !== document.documentElement) {
     Array.from(parent.children).forEach(child => {
-      if (child !== current) {
+      if (child !== current && !isSubtitleElement(child)) {
         child.style.setProperty('opacity', '0', 'important');
         child.style.setProperty('pointer-events', 'none', 'important');
         child.dataset.nfsHidden = '1';
@@ -33,12 +51,14 @@ function hideCursor() {
 }
 
 function showCursor() {
+  if (cursorLock) return; // UIが隠れている間は復活させない
   document.body.classList.remove("nfs-cursor-hidden");
 }
 
 function hideUI() {
   if (!isPlayerPage()) return;
   isHidden = true;
+  cursorLock = true;
   hideCursor();
   const video = document.querySelector('video');
   if (!video) return;
@@ -48,6 +68,7 @@ function hideUI() {
 function showUI() {
   if (!isHidden) return;
   isHidden = false;
+  cursorLock = false;
   showCursor();
   document.querySelectorAll('[data-nfs-hidden]').forEach(el => {
     el.style.removeProperty('opacity');
