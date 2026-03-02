@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "netflix-hide-overlay",
+  "version": "2.0.0",
+  "description": "マウス静止中はNetflixのボタン類を非表示にし、マウスを動かしたときだけ表示します",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["*://*.netflix.com/*"],
+      "css": ["hide.css"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "icon.png"
+  }
+}
