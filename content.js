@@ -5,7 +5,7 @@
  * - UIが隠れている間はカーソルを強制的に非表示に固定
  */
 
-const HIDE_DELAY = 2000;
+const HIDE_DELAY = 2500;
 let hideTimer = null;
 let isHidden = false;
 let cursorLock = false;
