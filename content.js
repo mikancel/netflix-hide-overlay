@@ -1,9 +1,4 @@
-/**
- * Netflix Silent v3+ — content.js（字幕保持・カーソル安定化・最終版）
- * - マウス静止中は映像(<video>)以外のUI要素を非表示（字幕は除外）
- * - DOM変化を監視し、新要素が追加されても即座に隠す
- * - UIが隠れている間はカーソルを強制的に非表示に固定
- */
+// v3.3.0
 
 const HIDE_DELAY = 2500;
 let hideTimer = null;
@@ -14,16 +9,16 @@ function isPlayerPage() {
   return location.pathname.startsWith('/watch');
 }
 
-// Netflix字幕DOMを確実に除外（クラス＋保険ロジック）
+// 字幕を除外
 function isSubtitleElement(el) {
   if (!el) return false;
 
-  // クラスベース（最優先・安定）
+  // クラスベース
   if (el.classList?.contains('player-timedtext')) return true;
   if (el.classList?.contains('player-timedtext-text-container')) return true;
   if (el.querySelector?.('.player-timedtext, .player-timedtext-text-container')) return true;
 
-  // 意味属性ベース（将来変更への保険）
+  // 意味属性ベース
   if (el.matches?.('[aria-live]')) return true;
   if (el.querySelector?.('[aria-live]')) return true;
 
@@ -51,7 +46,7 @@ function hideCursor() {
 }
 
 function showCursor() {
-  if (cursorLock) return; // UIが隠れている間は復活させない
+  if (cursorLock) return;
   document.body.classList.remove("nfs-cursor-hidden");
 }
 

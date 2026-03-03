@@ -1,6 +1,3 @@
-/* Netflix Silent v3 — hide.css */
-/* JSで直接スタイルを制御するため、CSSは最小限 */
-
 /* フェードのトランジション */
 [data-nfs-hidden] {
   transition: opacity 0.3s ease !important;
