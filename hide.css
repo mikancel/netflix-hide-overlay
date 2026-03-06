@@ -26,14 +26,17 @@ body.nfs-cursor-hidden .watch-video--player-view-minimized video {
   height: 100% !important;
 }
 
-/* エンドカードのホバー時白枠を非表示 */
+/* エンドカードの白枠を常に非表示（ホバー・フォーカス含む） */
 .watch-video--player-view-minimized,
 .watch-video--player-view-minimized *,
 .watch-video--player-view-minimized:hover,
 .watch-video--player-view-minimized *:hover,
 .watch-video--player-view-minimized:focus,
-.watch-video--player-view-minimized *:focus {
+.watch-video--player-view-minimized *:focus,
+.watch-video--player-view-minimized:focus-visible,
+.watch-video--player-view-minimized *:focus-visible {
   outline: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
+  transition: none !important;
 }
