@@ -9,20 +9,25 @@ body.nfs-cursor-hidden * {
   cursor: none !important;
 }
 
-/* エンドカード時のビデオ縮小を防ぐ */
-.watch-video--player-view-minimized {
+/* 映像のフォーカス枠を非表示 */
+body.nfs-cursor-hidden video {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* エンドカード時のビデオ縮小を防ぐ（マウス静止中のみ） */
+body.nfs-cursor-hidden .watch-video--player-view-minimized {
   width: 100% !important;
   height: 100% !important;
   top: 0 !important;
   left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  position: fixed !important;
   transform: none !important;
 }
 
-.watch-video--player-view-minimized video {
+body.nfs-cursor-hidden .watch-video--player-view-minimized video {
   width: 100% !important;
   height: 100% !important;
 }
-
-
-
-
