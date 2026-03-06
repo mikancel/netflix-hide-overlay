@@ -9,21 +9,32 @@ body.nfs-cursor-hidden * {
   cursor: none !important;
 }
 
-/* エンドカード時のビデオ縮小を防ぐ（マウス静止中のみ） */
+/* エンドカード時のビデオ位置・サイズを固定（マウス静止中のみ） */
 body.nfs-cursor-hidden .watch-video--player-view-minimized {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
   top: 0 !important;
   left: 0 !important;
   bottom: 0 !important;
   right: 0 !important;
   position: fixed !important;
   transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.nfs-cursor-hidden .watch-video--player-view-minimized > * {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 body.nfs-cursor-hidden .watch-video--player-view-minimized video {
   width: 100% !important;
   height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 /* プレイヤーの白枠を常に非表示 */
