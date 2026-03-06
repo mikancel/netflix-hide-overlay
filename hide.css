@@ -28,8 +28,15 @@ body.nfs-cursor-hidden .watch-video--player-view-minimized video {
 
 /* プレイヤーの白枠を常に非表示 */
 .watch-video--player-view,
-.watch-video--player-view * {
+.watch-video--player-view *,
+.watch-video--player-view:hover,
+.watch-video--player-view *:hover,
+.watch-video--player-view:focus,
+.watch-video--player-view *:focus,
+.watch-video--player-view:focus-visible,
+.watch-video--player-view *:focus-visible {
   outline: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
+  transition: outline 0s, border-color 0s, box-shadow 0s !important;
 }
