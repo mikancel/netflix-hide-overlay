@@ -1,4 +1,4 @@
-// v3.3.0
+// v3.4.0
 
 const HIDE_DELAY = 2500;
 let hideTimer = null;
@@ -12,16 +12,11 @@ function isPlayerPage() {
 // 字幕を除外
 function isSubtitleElement(el) {
   if (!el) return false;
-
-  // クラスベース
   if (el.classList?.contains('player-timedtext')) return true;
   if (el.classList?.contains('player-timedtext-text-container')) return true;
   if (el.querySelector?.('.player-timedtext, .player-timedtext-text-container')) return true;
-
-  // 意味属性ベース
   if (el.matches?.('[aria-live]')) return true;
   if (el.querySelector?.('[aria-live]')) return true;
-
   return false;
 }
 
@@ -41,6 +36,20 @@ function hideNonVideoElements(video) {
   }
 }
 
+function suppressBorders() {
+  // watch-video--player-view配下の全要素のoutline/borderを消す
+  const root = document.querySelector('.watch-video--player-view');
+  if (!root) return;
+  root.querySelectorAll('*').forEach(el => {
+    el.style.setProperty('outline', 'none', 'important');
+    el.style.setProperty('border-color', 'transparent', 'important');
+    el.style.setProperty('box-shadow', 'none', 'important');
+  });
+  root.style.setProperty('outline', 'none', 'important');
+  root.style.setProperty('border-color', 'transparent', 'important');
+  root.style.setProperty('box-shadow', 'none', 'important');
+}
+
 function hideCursor() {
   document.body.classList.add("nfs-cursor-hidden");
 }
@@ -55,6 +64,7 @@ function hideUI() {
   isHidden = true;
   cursorLock = true;
   hideCursor();
+  suppressBorders();
   const video = document.querySelector('video');
   if (!video) return;
   hideNonVideoElements(video);
@@ -88,7 +98,7 @@ document.addEventListener('mousemove', () => {
   scheduleHide();
 }, { passive: true });
 
-// DOM変化を監視: 隠れている状態のとき新要素が追加されたら即座に隠す
+// DOM変化を監視
 new MutationObserver(() => {
   if (isHidden && isPlayerPage()) {
     hideUI();
