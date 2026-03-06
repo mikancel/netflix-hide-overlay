@@ -13,6 +13,7 @@ Netflixの再生中、マウスが静止しているときにUIオーバーレ�
 - Hides the mouse cursor when idle
 - Works only on `/watch` pages — no interference with browsing
 - Automatically re-hides dynamically added elements (e.g. skip intro, credits buttons)
+- Prevents video from shrinking during end card / next episode screens
 
 ---
 
@@ -21,6 +22,7 @@ Netflixの再生中、マウスが静止しているときにUIオーバーレ�
 - 静止中はマウスカーソルも非表示
 - `/watch` ページのみ動作し、通常のブラウジングには影響なし
 - 動的に追加される要素（イントロスキップ・クレジットボタンなど）も即座に非表示
+- エンドカード・次のエピソード画面での映像縮小を防止
 
 ---
 
@@ -33,6 +35,12 @@ Netflixの再生中、マウスが静止しているときにUIオーバーレ�
 3. Enable **Developer mode** / **デベロッパーモード** をONにする
 4. Click **Load unpacked** / **パッケージ化されていない拡張機能を読み込む** をクリック
 5. Select the repository folder / リポジトリのフォルダを選択
+
+---
+
+## Known Issues / 既知の問題
+
+- End card behavior may be unstable / エンドカード周辺の動作が不安定な場合があります
 
 ---
 

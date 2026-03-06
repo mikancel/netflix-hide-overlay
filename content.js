@@ -1,4 +1,4 @@
-// v3.4.0
+// v3.5.0
 
 const HIDE_DELAY = 2500;
 let hideTimer = null;
