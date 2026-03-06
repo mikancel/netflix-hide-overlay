@@ -9,13 +9,7 @@ body.nfs-cursor-hidden * {
   cursor: none !important;
 }
 
-/* 映像のフォーカス枠を非表示 */
-body.nfs-cursor-hidden video {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* エンドカード時のビデオ縮小を防ぐ（マウス静止中のみ） */
+/* エンドカード時のビデオ縮小を防ぐ＋白枠を消す（マウス静止中のみ） */
 body.nfs-cursor-hidden .watch-video--player-view-minimized {
   width: 100% !important;
   height: 100% !important;
@@ -25,6 +19,7 @@ body.nfs-cursor-hidden .watch-video--player-view-minimized {
   right: 0 !important;
   position: fixed !important;
   transform: none !important;
+  outline: none !important;
 }
 
 body.nfs-cursor-hidden .watch-video--player-view-minimized video {
