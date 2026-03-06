@@ -37,17 +37,16 @@ function hideNonVideoElements(video) {
 }
 
 function suppressBorders() {
-  // watch-video--player-view配下の全要素のoutline/borderを消す
   const root = document.querySelector('.watch-video--player-view');
   if (!root) return;
+  root.style.setProperty('outline', 'none', 'important');
+  root.style.setProperty('border-color', 'transparent', 'important');
+  root.style.setProperty('box-shadow', 'none', 'important');
   root.querySelectorAll('*').forEach(el => {
     el.style.setProperty('outline', 'none', 'important');
     el.style.setProperty('border-color', 'transparent', 'important');
     el.style.setProperty('box-shadow', 'none', 'important');
   });
-  root.style.setProperty('outline', 'none', 'important');
-  root.style.setProperty('border-color', 'transparent', 'important');
-  root.style.setProperty('box-shadow', 'none', 'important');
 }
 
 function hideCursor() {
@@ -104,6 +103,17 @@ new MutationObserver(() => {
     hideUI();
   }
 }).observe(document.body, { childList: true, subtree: true });
+
+// -minimizedクラスの追加を監視して即座に白枠を消す
+new MutationObserver((mutations) => {
+  for (const m of mutations) {
+    if (m.type === 'attributes' && m.attributeName === 'class') {
+      if (m.target.classList.contains('watch-video--player-view-minimized')) {
+        suppressBorders();
+      }
+    }
+  }
+}).observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: true });
 
 // SPA遷移の監視
 let lastPath = location.pathname;
