@@ -9,7 +9,7 @@ body.nfs-cursor-hidden * {
   cursor: none !important;
 }
 
-/* エンドカード時のビデオ縮小を防ぐ＋白枠を消す（マウス静止中のみ） */
+/* エンドカード時のビデオ縮小を防ぐ（マウス静止中のみ） */
 body.nfs-cursor-hidden .watch-video--player-view-minimized {
   width: 100% !important;
   height: 100% !important;
@@ -19,10 +19,21 @@ body.nfs-cursor-hidden .watch-video--player-view-minimized {
   right: 0 !important;
   position: fixed !important;
   transform: none !important;
-  outline: none !important;
 }
 
 body.nfs-cursor-hidden .watch-video--player-view-minimized video {
   width: 100% !important;
   height: 100% !important;
+}
+
+/* エンドカードのホバー時白枠を非表示 */
+.watch-video--player-view-minimized,
+.watch-video--player-view-minimized *,
+.watch-video--player-view-minimized:hover,
+.watch-video--player-view-minimized *:hover,
+.watch-video--player-view-minimized:focus,
+.watch-video--player-view-minimized *:focus {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
