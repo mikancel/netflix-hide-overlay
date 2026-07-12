@@ -64,7 +64,10 @@ function hideUI() {
   cursorLock = true;
   hideCursor();
   suppressBorders();
-  const video = document.querySelector('video');
+  // エンドカード/次エピのプレビュー動画に釣られないよう、プレイヤー内の映像を優先
+  const video =
+    document.querySelector('.watch-video--player-view video, .watch-video--player-view-minimized video') ||
+    document.querySelector('video');
   if (!video) return;
   hideNonVideoElements(video);
 }
@@ -97,10 +100,18 @@ document.addEventListener('mousemove', () => {
   scheduleHide();
 }, { passive: true });
 
-// DOM変化を監視
+// DOM変化を監視（エンドカードのDOM大量更新でも1フレームにまとめて処理）
+let hideRaf = null;
+function scheduleHideUI() {
+  if (hideRaf !== null) return;
+  hideRaf = requestAnimationFrame(() => {
+    hideRaf = null;
+    if (isHidden && isPlayerPage()) hideUI();
+  });
+}
 new MutationObserver(() => {
   if (isHidden && isPlayerPage()) {
-    hideUI();
+    scheduleHideUI();
   }
 }).observe(document.body, { childList: true, subtree: true });
 

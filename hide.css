@@ -19,11 +19,14 @@ body.nfs-cursor-hidden .watch-video--player-view-minimized {
   transform: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  /* Netflix側の縮小アニメと綱引きにならないよう即座に確定させる */
+  transition: none !important;
 }
 
 body.nfs-cursor-hidden .watch-video--player-view-minimized video {
   width: 100% !important;
   height: 100% !important;
+  transition: none !important;
 }
 
 /* プレイヤーの白枠を常に非表示 */
